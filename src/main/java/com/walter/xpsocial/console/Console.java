@@ -56,7 +56,6 @@ public class Console {
     }
 
     private void printWelcome() {
-        jkljljlò
         outputStream.println("---------------------------");
         outputStream.println("-- XpSocial 1.0 - 06/2020 - Walter Nuccio - Pozzuoli -");
         outputStream.println("---('exit' to terminate)---");
