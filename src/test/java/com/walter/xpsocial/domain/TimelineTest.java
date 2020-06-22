@@ -29,6 +29,7 @@ public class TimelineTest {
     public void testReturnNoPostForANewTimeline() {
         setUp();
         assertTrue(timeline.allPosts().isEmpty());
+        fail();
     }
 
     @Test
