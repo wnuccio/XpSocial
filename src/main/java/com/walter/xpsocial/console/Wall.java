@@ -25,8 +25,7 @@ public class Wall implements Command {
     public String execute(Social social) {
         final List<Post> posts = social.allPostsIncludingFollowed(username);
         
-        Collections.sort(posts);
-        Collections.reverse(posts);
+//        Collections.sort(posts);
         
         String output = OutputBuilder.forEach(posts)
                 .append(Post::username)

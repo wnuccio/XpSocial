@@ -46,7 +46,9 @@ public class Post implements Comparable<Post> {
 
     @Override
     public int compareTo(Post other) {
-        return this.postingTime.compareTo(other.postingTime);
+        int olderFirst = this.postingTime.compareTo(other.postingTime);
+        int youngerFirst = -1 * olderFirst;
+        return youngerFirst;
     }
 
 }

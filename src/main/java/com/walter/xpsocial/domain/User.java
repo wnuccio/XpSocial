@@ -6,13 +6,14 @@ import java.util.LinkedHashSet;
 import java.util.List;
 
 public class User {
+    
     private final String name;
-    private final Timeline timeline;
+    private final List<Post> timeline;
     private final LinkedHashSet<User> followed;
 
     public User(String name) {
         this.name = name;
-        this.timeline = new Timeline();
+        this.timeline = new ArrayList<>();
         this.followed = new LinkedHashSet<>();
     }
 
@@ -23,11 +24,11 @@ public class User {
     }
 
     List<Post> allPosts() {
-        return timeline.allPosts();
+        return new ArrayList<>(this.timeline);
     }
 
     void post(Post post) {
-        timeline.addToHead(post);
+        timeline.add(0, post);
     }
     
     void follow(User other) {

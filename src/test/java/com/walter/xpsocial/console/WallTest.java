@@ -1,11 +1,9 @@
 package com.walter.xpsocial.console;
 
-import com.walter.xpsocial.domain.Clock;
 import com.walter.xpsocial.domain.ClockMock;
 import com.walter.xpsocial.domain.Post;
 import com.walter.xpsocial.domain.Social;
 import java.time.LocalDateTime;
-import java.time.temporal.ChronoUnit;
 import static java.time.temporal.ChronoUnit.*;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;

@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package com.walter.xpsocial.domain;
 
 import java.time.LocalDateTime;
@@ -11,10 +6,6 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 
-/**
- *
- * @author user
- */
 public class PostTest {
     LocalDateTime postingTime;
     
@@ -54,8 +45,8 @@ public class PostTest {
         Post before = new Post("Middle", postingTime);
         Post after = new Post("Middle", postingTime.plus(10, SECONDS));
         
-        assertEquals(-1, before.compareTo(after));
-        assertEquals(+1, after.compareTo(before));
+        assertEquals(+1, before.compareTo(after));
+        assertEquals(-1, after.compareTo(before));
         assertEquals(0, before.compareTo(before));
     }
 }
