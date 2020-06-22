@@ -21,7 +21,7 @@ public class Duration {
     
     @Override
     public String toString() {
-        long time = value.get(ChronoUnit.SECONDS);
+        long time = seconds();
         
         if (time < 60) {
             String unit = time > 1 ? "seconds" : "second";

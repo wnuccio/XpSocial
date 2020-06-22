@@ -24,6 +24,6 @@ public class Posting implements Command {
     public String execute(Social social) {
         Post post = new Post(message, clock.currentTime());
         social.post(username, post);
-        return "";
+        return NO_OUTPUT;
     }
 }

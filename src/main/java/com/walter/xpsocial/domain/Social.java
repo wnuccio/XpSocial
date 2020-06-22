@@ -1,6 +1,7 @@
 package com.walter.xpsocial.domain;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -41,15 +42,18 @@ public class Social {
     }
     
     public List<Post> allPostsIncludingFollowed(String username) {
-        User user = user(username);
         List<Post> result = new ArrayList<>();
-        
+       
+        User user = user(username);
         List<Post> posts = user.allPosts();
         result.addAll(posts);
         
         followed(username).forEach(followed -> {
             result.addAll(followed.allPosts());
         });
+        
+        Collections.sort(result);
+        
         return result;
     }
 }
