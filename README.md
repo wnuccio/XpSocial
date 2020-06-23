@@ -1,7 +1,7 @@
 # XpSocial
 Social Network Kata Exercise
 
-To execute the program:
+To run the program:
 
 1. Be sure to have Maven installed
 2. Download the zip and extract it in a directory of your choice
