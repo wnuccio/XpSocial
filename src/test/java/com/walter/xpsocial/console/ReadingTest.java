@@ -5,9 +5,9 @@ import com.walter.xpsocial.domain.Post;
 import com.walter.xpsocial.domain.Social;
 import java.time.LocalDateTime;
 import static java.time.temporal.ChronoUnit.*;
+import static org.junit.jupiter.api.Assertions.*;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import static org.junit.jupiter.api.Assertions.*;
 
 public class ReadingTest {
 
@@ -31,7 +31,7 @@ public class ReadingTest {
         setUp();
         LocalDateTime now = LocalDateTime.now(); 
         
-        social.post("Sodium", new Post("Hello!!!", now));
+        social.post("Sodium", new Post("Hello!!!",  now));
         social.post("Sodium", new Post("Is anybody here???", now.plus(1, SECONDS)));
         social.post("Sodium", new Post("I'm a sodium particle.", now.plus(6, SECONDS)));
         social.post("Sodium", new Post("All gone...", now.plus(8, SECONDS)));

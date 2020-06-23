@@ -32,7 +32,7 @@
         <maven.compiler.target>1.8</maven.compiler.target>
     </properties>
 
-    <build>	
+<!--    <build>	
         <plugins>
             <plugin>
                 <groupId>org.codehaus.mojo</groupId>
@@ -40,6 +40,27 @@
                 <version>1.2.1</version>
                 <configuration>
                     <mainClass>com.walter.xpsocial.XpSocial</mainClass>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>-->
+    <build>
+        <finalName>social</finalName>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-jar-plugin</artifactId>
+                 <version>3.2.0</version>
+                <configuration>
+                    <archive>
+                        <manifest>
+                            <addClasspath>true</addClasspath>
+                            <classpathPrefix>libs/</classpathPrefix>
+                            <mainClass>
+                                com.walter.xpsocial.XpSocial
+                            </mainClass>
+                        </manifest>
+                    </archive>
                 </configuration>
             </plugin>
         </plugins>
