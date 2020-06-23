@@ -16,7 +16,7 @@ public class ConsoleTest {
 
     @Test
     public void testEmptyOutputOnPosting() {
-        setUp();
+//        setUp();
         String output = console.input("Alice -> I love the weather today");
 
         assertTrue(output.isEmpty());
