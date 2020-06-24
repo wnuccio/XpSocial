@@ -8,6 +8,10 @@ import java.util.List;
 public class Reading implements Command {
     private final String username;
     private Clock clock;
+
+    public String username() {
+        return username;
+    }
     
     Reading clock(Clock clock) {
         this.clock = clock;

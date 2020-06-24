@@ -5,9 +5,18 @@ import com.walter.xpsocial.domain.Post;
 import com.walter.xpsocial.domain.Social;
 
 public class Posting implements Command {
+    
     private final String username;
     private final String message;
     private Clock clock;
+    
+    public String username() {
+        return username;
+    }
+
+    public String message() {
+        return message;
+    }
     
     Posting clock(Clock clock) {
         this.clock = clock;

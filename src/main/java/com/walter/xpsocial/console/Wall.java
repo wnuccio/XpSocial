@@ -3,13 +3,16 @@ package com.walter.xpsocial.console;
 import com.walter.xpsocial.domain.Clock;
 import com.walter.xpsocial.domain.Post;
 import com.walter.xpsocial.domain.Social;
-import java.util.Collections;
 import java.util.List;
 
 public class Wall implements Command {
     
     private final String username;
     private Clock clock;
+    
+    public String username() {
+        return username;
+    }
     
     public Wall(String username) {
         this.username = username;
@@ -24,8 +27,6 @@ public class Wall implements Command {
     @Override
     public String execute(Social social) {
         final List<Post> posts = social.allPostsIncludingFollowed(username);
-        
-//        Collections.sort(posts);
         
         String output = OutputBuilder.forEach(posts)
                 .append(Post::username)
