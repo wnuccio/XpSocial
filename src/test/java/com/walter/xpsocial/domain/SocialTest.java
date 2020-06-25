@@ -2,9 +2,9 @@ package com.walter.xpsocial.domain;
 
 import java.time.LocalDateTime;
 import java.util.List;
+import static org.junit.jupiter.api.Assertions.*;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import static org.junit.jupiter.api.Assertions.*;
 
 public class SocialTest {
 
@@ -20,19 +20,25 @@ public class SocialTest {
     }
 
     @Test
-    public void testReturnsLazyInitializedUserOnFirstReference() {
+    public void testReturnLazyInitializedUserOnFirstReference() {
         setUp();
         assertNotNull(social.user("Alice"));
     }
 
     @Test
-    public void testReturnsNoPostBeforeAnyPosting() {
+    public void testFindNoUserOnFirstReference() {
+        setUp();
+        assertTrue(social.findUser("Alice").isEmpty());
+    }
+
+    @Test
+    public void testReturnNoPostBeforeAnyPosting() {
         setUp();
         assertTrue(social.allPosts("Alice").isEmpty());
     }
 
     @Test
-    public void testReturnsPostWithUsername() {
+    public void testReturnPostWithUsername() {
         setUp();
         final Post post = post("I love the weather today");
         assertTrue(post.username().isEmpty());
@@ -46,7 +52,7 @@ public class SocialTest {
     }
     
     @Test
-    public void testReturnsPostsOfUserInReversePostingOrder() {
+    public void testReturnPostsOfUserInReversePostingOrder() {
         setUp();
         social.post("Alice", post("I love the weather today"));
         social.post("Alice", post("There is a beautiful sun"));
@@ -58,7 +64,7 @@ public class SocialTest {
     }
     
     @Test
-    public void testReturnsOnlyUserPostsBeforeAnyFollowing() {
+    public void testReturnOnlyPostsOfUserBeforeAnyFollowing() {
         setUp();
         social.post("Alice", post("I love the weather today"));
         social.post("Charlie", post("I'm in New York today!"));
@@ -70,7 +76,7 @@ public class SocialTest {
     }
     
     @Test
-    public void testReturnsAllPostsIncludingFollowedAfterFollowing() {
+    public void testReturnAllPostsIncludingFollowedAfterFollowing() {
         setUp();
         social.post("Alice", post("I love the weather today"));
         social.post("Charlie", post("I'm in New York today!"));

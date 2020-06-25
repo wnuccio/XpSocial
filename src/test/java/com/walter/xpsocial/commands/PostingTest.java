@@ -1,5 +1,6 @@
-package com.walter.xpsocial.console;
+package com.walter.xpsocial.commands;
 
+import com.walter.xpsocial.commands.Posting;
 import com.walter.xpsocial.domain.Post;
 import com.walter.xpsocial.domain.Social;
 import org.junit.jupiter.api.BeforeEach;

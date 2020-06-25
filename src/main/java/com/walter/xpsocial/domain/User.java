@@ -27,11 +27,11 @@ public class User {
         return new ArrayList<>(this.timeline);
     }
 
-    void post(Post post) {
+    void addToTimeline(Post post) {
         timeline.add(0, post);
     }
     
-    void follow(User other) {
+    void addFollowed(User other) {
         if (other == this) return;
         if (alreadyFollowedUser(other)) return;
         

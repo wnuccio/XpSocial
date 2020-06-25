@@ -1,5 +1,6 @@
-package com.walter.xpsocial.console;
+package com.walter.xpsocial.commands;
 
+import com.walter.xpsocial.domain.Command;
 import com.walter.xpsocial.domain.Social;
 
 public class Following implements Command {

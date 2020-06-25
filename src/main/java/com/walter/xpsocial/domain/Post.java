@@ -1,5 +1,6 @@
 package com.walter.xpsocial.domain;
 
+import java.time.Duration;
 import java.time.LocalDateTime;
 
 public class Post implements Comparable<Post> {
@@ -30,17 +31,9 @@ public class Post implements Comparable<Post> {
         this.username = username;
     }
 
-    public Duration elapsedTimeFromPosting(Clock clock) {
+    public Duration timeFromPosting(Clock clock) {
         LocalDateTime currentTime = clock.currentTime();
-        final java.time.Duration javaDuration
-                = java.time.Duration.between(postingTime, currentTime);
-        Duration result = new Duration(javaDuration);
-        return result;
-    }
-
-    public String elapsedTimeAsString(Clock clock) {
-        Duration d = elapsedTimeFromPosting(clock);
-        String result = String.format("(%s ago)", d);
+        final Duration result = Duration.between(postingTime, currentTime);
         return result;
     }
 
