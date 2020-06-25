@@ -28,8 +28,8 @@ public class UserTest {
     @Test
     public void testReturnPostsInReverseOrder() {
         setUp();
-        alice.post(new Post("Ciao", LocalDateTime.now()));
-        alice.post(new Post("Hello", LocalDateTime.now()));
+        alice.addToTimeline(new Post("Ciao", LocalDateTime.now()));
+        alice.addToTimeline(new Post("Hello", LocalDateTime.now()));
 
         assertEquals("Hello", alice.allPosts().get(0).message());
         assertEquals("Ciao", alice.allPosts().get(1).message());
@@ -46,8 +46,8 @@ public class UserTest {
     public void testReturnFollowedInReverseOrder() {
         setUp();
         User bob = new User("Bob");
-        charlie.follow(alice);
-        charlie.follow(bob);
+        charlie.addFollowed(alice);
+        charlie.addFollowed(bob);
         final List<User> followed = charlie.followed();
 
         assertEquals(followed.get(0), bob);
@@ -57,7 +57,7 @@ public class UserTest {
     @Test
     public void testUserCannotFollowHimself() {
         setUp();
-        charlie.follow(charlie);
+        charlie.addFollowed(charlie);
         
         assertTrue(charlie.followed().isEmpty());
     }
@@ -65,8 +65,8 @@ public class UserTest {
     @Test
     public void testFollowingIsIdempotent() {
         setUp();
-        charlie.follow(alice);
-        charlie.follow(alice);
+        charlie.addFollowed(alice);
+        charlie.addFollowed(alice);
         
         assertEquals(1, charlie.followed().size());
         assertTrue(charlie.followed().contains(alice));
@@ -78,8 +78,8 @@ public class UserTest {
         User twin1 = new User("Don");
         User twin2 = new User("Don");
         
-        charlie.follow(twin1);
-        charlie.follow(twin2);
+        charlie.addFollowed(twin1);
+        charlie.addFollowed(twin2);
         
         assertEquals(1, charlie.followed().size());
     }

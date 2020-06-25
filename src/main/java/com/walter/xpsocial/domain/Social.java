@@ -5,6 +5,7 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 
 public class Social {
 
@@ -13,15 +14,19 @@ public class Social {
     public Social() {
     }
 
-    public User user(String username) {
+    User user(String username) {
         map.computeIfAbsent(username, usernameAsKey -> new User(usernameAsKey));
         return map.get(username);
     }
 
+    public Optional<User> findUser(String username) {
+        return Optional.ofNullable(map.get(username));
+    }
+    
     public void post(String username, Post post) {
         User user = user(username);
         post.setUsername(username);
-        user.post(post);
+        user.addToTimeline(post);
     }
 
     public List<Post> allPosts(String username) {
@@ -32,7 +37,7 @@ public class Social {
     public void follows(String username, String followedName) {
         User user = user(username);
         User followed = user(followedName);
-        user.follow(followed);
+        user.addFollowed(followed);
     }
     
     public List<User> followed(String username) {

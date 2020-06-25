@@ -1,4 +1,4 @@
-package com.walter.xpsocial.console;
+package com.walter.xpsocial.commands;
 
 import java.util.ArrayList;
 import java.util.List;

@@ -1,5 +1,6 @@
-package com.walter.xpsocial.console;
+package com.walter.xpsocial.commands;
 
+import com.walter.xpsocial.commands.Wall;
 import com.walter.xpsocial.domain.ClockMock;
 import com.walter.xpsocial.domain.Post;
 import com.walter.xpsocial.domain.Social;

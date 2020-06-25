@@ -1,6 +1,4 @@
-package com.walter.xpsocial.console;
-
-import com.walter.xpsocial.domain.Social;
+package com.walter.xpsocial.domain;
 
 public interface Command {
 

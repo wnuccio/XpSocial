@@ -1,16 +1,16 @@
-package com.walter.xpsocial.console;
+package com.walter.xpsocial.commands;
 
 import com.walter.xpsocial.domain.Post;
 import java.time.LocalDateTime;
 import java.util.Arrays;
 import java.util.List;
-import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
+import org.junit.jupiter.api.Test;
 
 public class OutputBuilderTest {
 
     private static Post post(String text) {
-        return new Post(text, LocalDateTime.now());
+        return new Post(text, LocalDateTime.now()); 
     }
 
     @Test

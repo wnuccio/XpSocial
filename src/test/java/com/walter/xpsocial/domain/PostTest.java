@@ -1,10 +1,11 @@
 package com.walter.xpsocial.domain;
 
+import java.time.Duration;
 import java.time.LocalDateTime;
 import static java.time.temporal.ChronoUnit.*;
+import static org.junit.jupiter.api.Assertions.*;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import static org.junit.jupiter.api.Assertions.*;
 
 public class PostTest {
     LocalDateTime postingTime;
@@ -15,7 +16,6 @@ public class PostTest {
     @BeforeEach
     public void setUp() {
         postingTime = LocalDateTime.now();
-        Post p = new Post("Hello", postingTime);
     }
 
     @Test
@@ -23,9 +23,9 @@ public class PostTest {
         setUp();
         Post p = new Post("Hello", postingTime);
         
-        Duration elapsed = p.elapsedTimeFromPosting(() -> postingTime);
+        Duration elapsed = p.timeFromPosting(() -> postingTime);
         
-        assertEquals(0, elapsed.seconds());
+        assertEquals(Duration.of(0, SECONDS), elapsed);
     }
     
     @Test
@@ -33,10 +33,9 @@ public class PostTest {
         setUp();
         Post p = new Post("Hello", postingTime);
         
-        Duration elapsed = p.elapsedTimeFromPosting(
-                () ->  postingTime.plus(30, SECONDS));
+        Duration elapsed = p.timeFromPosting(() -> postingTime.plus(30, SECONDS));
         
-        assertEquals(30, elapsed.seconds());
+        assertEquals(Duration.of(30, SECONDS), elapsed);
     }
     
     @Test

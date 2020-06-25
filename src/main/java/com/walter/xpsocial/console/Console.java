@@ -1,7 +1,7 @@
 package com.walter.xpsocial.console;
 
+import com.walter.xpsocial.domain.Command;
 import com.walter.xpsocial.domain.Social;
-import java.io.IOException;
 import java.io.PrintStream;
 import java.util.Scanner;
 
@@ -20,26 +20,27 @@ public class Console {
         this.outputStream = System.out;
     }
     
-    public void run() throws IOException {
-        printWelcome();
+    public boolean readAndProcessInput() {
+        printPrompt();
+        String row = readFromInputStream();
+        if (isExit(row)) return true;
         
-        while(true) {
-            printPrompt();
-            String row = readInput();
-            if("exit".equals(row)) break;
-            String output = input(row);
-            printOutput(output);
-        }
+        String output = processInputRow(row);
+        printOutput(output);
+        return false;
     }
 
-    String input(String row) {
+    private static boolean isExit(String row) {
+        return "exit".equals(row);
+    }
+
+    String processInputRow(String row) {
         Command command = parser.parse(row);
         String output = command.execute(social);
-        
         return output;
     }
         
-    private String readInput() {
+    private String readFromInputStream() {
         String row = scanner.nextLine();
         return row;
     }
@@ -55,7 +56,7 @@ public class Console {
         outputStream.flush();
     }
 
-    private void printWelcome() {
+    public void printWelcome() {
         outputStream.println("---------------------------");
         outputStream.println("-- XpSocial 1.0 - 06/2020 -");
         outputStream.println("------  Walter Nuccio -----");
