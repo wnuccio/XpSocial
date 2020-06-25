@@ -28,7 +28,7 @@ public class SocialTest {
     @Test
     public void testFindNoUserOnFirstReference() {
         setUp();
-        assertTrue(social.findUser("Alice").isEmpty());
+        assertFalse(social.findUser("Alice").isPresent());
     }
 
     @Test
