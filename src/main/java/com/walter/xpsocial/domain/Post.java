@@ -9,7 +9,7 @@ public class Post implements Comparable<Post> {
     private String username;
 
     public Post(String text) {
-        this(text, LocalDateTime.now());
+        this(text, Clock.REAL.currentTime());
     }
 
     public Post(String message, LocalDateTime postingTime) {

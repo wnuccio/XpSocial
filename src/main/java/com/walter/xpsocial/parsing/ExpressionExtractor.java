@@ -22,7 +22,7 @@ class ExpressionExtractor {
     }
     
     public ExpressionExtractor() {
-        this.spaces = Pattern.compile(" ");
+        this.spaces = Pattern.compile("\\s+");
         this.tokenList = new ArrayList<>();
         init();
     }

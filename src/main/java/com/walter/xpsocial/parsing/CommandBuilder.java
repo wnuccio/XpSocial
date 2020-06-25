@@ -8,10 +8,10 @@ import java.util.function.BiFunction;
 import java.util.function.Function;
 import java.util.function.Supplier;
 
-class CommandBuilder {
+public class CommandBuilder {
 
     private final ExpressionParser parser;
-    private List<String> regexpr;
+    private List<String> expressions;
 
     private Supplier<Command> commandConstructor0;
     private Function<String, Command> commandConstructor1;
@@ -22,53 +22,54 @@ class CommandBuilder {
         this.parser = parser;
     }
 
-    CommandBuilder fromRow(String... regexpr) {
-        this.regexpr = Arrays.asList(regexpr);
+    public CommandBuilder fromExpression(String... regexpr) {
+        this.expressions = Arrays.asList(regexpr);
         return this;
     }
 
-    CommandBuilder is(Function<String, Command> commandConstructor) {
+    public CommandBuilder buildCommand(Function<String, Command> commandConstructor) {
         this.commandConstructor1 = commandConstructor;
         return this;
     }
 
-    CommandBuilder is(BiFunction<String, String, Command> commandConstructor) {
+    public CommandBuilder buildCommand(BiFunction<String, String, Command> commandConstructor) {
         this.commandConstructor2 = commandConstructor;
         return this;
     }
 
-    CommandBuilder is(Supplier<Command> commandConstructor) {
+    public CommandBuilder buildCommand(Supplier<Command> commandConstructor) {
         this.commandConstructor0 = commandConstructor;
         return this;
     }
 
-    void withTokens(int... tokenIndexes) {
+    public void withTokens(int... tokenIndexes) {
         this.tokenIndexes = tokenIndexes;
 
+        CommandFactory factory = buildFactory();
+        this.parser.register(factory);
+    }
+
+    private CommandFactory buildFactory() {
         CommandFactory factory = row -> {
             ExpressionExtractor extractor = new ExpressionExtractor();
             String[] tokens = extractor
                     .from(row)
-                    .extract(regexpr.toArray(new String[regexpr.size()]));
+                    .extract(expressions.toArray(new String[expressions.size()]));
             if (extractor.hasError()) {
                 return Command.NULL_COMMAND;
             }
-            
             int tokenNumber = tokenIndexes.length;
             if (tokenNumber == 0) {
                 return commandConstructor0.get();
             } else if (tokenNumber == 1) {
                 return commandConstructor1.apply(tokens[tokenIndexes[0]]);
             } else if (tokenNumber == 2) {
-                return commandConstructor2.apply(
-                        tokens[tokenIndexes[0]], 
-                        tokens[tokenIndexes[1]]);
+                return commandConstructor2.apply(tokens[tokenIndexes[0]], tokens[tokenIndexes[1]]);
             } else {
                 return Command.NULL_COMMAND;
             }
         };
-        
-        this.parser.register(factory);
+        return factory;
     }
 
     static ExpressionParser.CommandFactory commandFactory(String[] regexpr, Function<String[], Command> commandConstructor) {

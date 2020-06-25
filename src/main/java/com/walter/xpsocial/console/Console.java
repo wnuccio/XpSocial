@@ -20,13 +20,6 @@ public class Console {
         this.outputStream = System.out;
     }
     
-    String input(String row) {
-        Command command = parser.parse(row);
-        String output = command.execute(social);
-        
-        return output;
-    }
-
     public void run() throws IOException {
         printWelcome();
         
@@ -39,15 +32,22 @@ public class Console {
         }
     }
 
+    String input(String row) {
+        Command command = parser.parse(row);
+        String output = command.execute(social);
+        
+        return output;
+    }
+        
     private String readInput() {
         String row = scanner.nextLine();
         return row;
     }
 
     private void printOutput(String output) {
-        if (! output.isEmpty()) {
-            outputStream.println(output);
-        }
+        if (output.isEmpty()) return;
+        
+        outputStream.println(output);
     }
 
     private void printPrompt() {

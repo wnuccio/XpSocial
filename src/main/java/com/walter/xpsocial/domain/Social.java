@@ -48,12 +48,12 @@ public class Social {
         List<Post> posts = user.allPosts();
         result.addAll(posts);
         
-        followed(username).forEach(followed -> {
-            result.addAll(followed.allPosts());
+        List<User> followed = followed(username);
+        followed.forEach(foll -> {
+            result.addAll(foll.allPosts());
         });
         
         Collections.sort(result);
-        
         return result;
     }
 }

@@ -122,4 +122,17 @@ public class ExpressionExtractorTest {
         assertTrue(Arrays.equals(multiple, single));
     }
 
+    @Test
+    public void testIgnoreExtraSpaces() {
+        String string = "one    two    three";
+        String[] matches = new ExpressionExtractor()
+                .from(string)
+                .extract("one", "two", "three");
+        
+        assertEquals(3, matches.length);
+        assertEquals("one", matches[0]);
+        assertEquals("two", matches[1]);
+        assertEquals("three", matches[2]);
+    }
+
 }

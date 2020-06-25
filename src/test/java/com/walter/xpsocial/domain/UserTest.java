@@ -2,9 +2,9 @@ package com.walter.xpsocial.domain;
 
 import java.time.LocalDateTime;
 import java.util.List;
+import static org.junit.jupiter.api.Assertions.*;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import static org.junit.jupiter.api.Assertions.*;
 
 public class UserTest {
 
@@ -26,7 +26,7 @@ public class UserTest {
     }
     
     @Test
-    public void testReturnsPostsInReverseOrder() {
+    public void testReturnPostsInReverseOrder() {
         setUp();
         alice.post(new Post("Ciao", LocalDateTime.now()));
         alice.post(new Post("Hello", LocalDateTime.now()));
@@ -43,7 +43,7 @@ public class UserTest {
     }
 
     @Test
-    public void testUserReturnsFollowedInReverseOrder() {
+    public void testReturnFollowedInReverseOrder() {
         setUp();
         User bob = new User("Bob");
         charlie.follow(alice);

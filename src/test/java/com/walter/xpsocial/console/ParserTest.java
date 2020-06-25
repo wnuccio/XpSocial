@@ -1,11 +1,6 @@
-package com.walter.xpsocial.parsing;
+package com.walter.xpsocial.console;
 
-import com.walter.xpsocial.console.Command;
-import com.walter.xpsocial.console.Following;
-import com.walter.xpsocial.console.Parser;
-import com.walter.xpsocial.console.Posting;
-import com.walter.xpsocial.console.Reading;
-import com.walter.xpsocial.console.Wall;
+import com.walter.xpsocial.parsing.ExpressionParser;
 import java.util.function.Function;
 import static org.junit.jupiter.api.Assertions.*;
 import org.junit.jupiter.api.BeforeEach;
@@ -17,8 +12,8 @@ public class ParserTest {
     
     @BeforeEach
     public void setUp() {
-//        p = new TokenizerParser();
-        p = new ExpressionParser();
+//        p = new ExpressionParser();
+        p = new TokenizerParser();
     }
     
     @Test
@@ -83,33 +78,51 @@ public class ParserTest {
         assertEquals(Command.NULL_COMMAND, c);
     }
     
-    public void testRegisterNewCommand() {
-        ExpressionParser p = new ExpressionParser();
-        p.register(row -> {
-            String[] tokens = new ExpressionExtractor()
-                    .from(row)
-                    .extract("sayhello", "\\w+");
-            return s -> "Hello " + tokens[1] + "!";
-        });
+    @Test
+    public void testIgnoreInitialSpaces() {
+        setUp();
+        Command c = p.parse("  Bob   -> Ciao");
         
-        Command command = p.parse("sayhello XPepper");
-        
-        assertEquals("Hello XPepper!", command.execute(null));
+        assertTrue(c instanceof Posting);
+        assertEquals("Bob", ((Posting)c).username());
+        assertEquals("Ciao", ((Posting)c).message());
     }
     
-    public void testRegisterNewCommand2() {
+    @Test
+    public void testIgnoreExtraSpaces() {
+        setUp();
+        Command c = p.parse("Bob   ->    Ciao  Alice   ");
+        
+        assertTrue(c instanceof Posting);
+        assertEquals("Bob", ((Posting)c).username());
+        assertEquals("Ciao  Alice", ((Posting)c).message());
+    }
+    
+    public void testRegisterNewCommand() {
         ExpressionParser p = new ExpressionParser();
         
         Function<String[], Command> greetings = tokens -> {
             return social -> "Hello " + tokens[1] + "!";
         };
         
-        p.registerCommand(
-                greetings,
-                "hello", "\\w+");
+        p.addCommmand()
+                .fromExpression("sayhello", "\\w+" )
+                .buildCommand(name -> social -> "Hello " + name + "!")
+                .withTokens(1);
         
         Command command = p.parse("sayhello XPepper");
         
         assertEquals("Hello XPepper!", command.execute(null));
     }
+    
+//    public void testAllWithExpressionParser() {
+//         p = new ExpressionParser();
+//         testReturnsNullCommandFromNullInput();
+//         testReturnsNullCommandFromEmptyInput();
+//         testReturnsReadingCommandFromUsername();
+//         testReturnsPostingCommandFromUsernamePostMessage();
+//         testReturnsFollowingCommandFromUsernameFollowUsername();
+//         testReturnsWallCommandFromUsernameWall();
+//         testReturnsNullCommandFromWrongInput();
+//    }
 }

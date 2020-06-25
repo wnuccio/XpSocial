@@ -15,38 +15,35 @@ public class Duration {
         return d;
     }
 
-    private String timeAndUnit(long time, String unit) {
-        return time + " " + unit;
-    }
-    
     @Override
     public String toString() {
         long time = seconds();
         
         if (time < 60) {
-            String unit = time > 1 ? "seconds" : "second";
-            return timeAndUnit(time, unit);
+            return timeAndUnit(time, "second");
         }
-
         time = time / 60;
         if (time < 60) {
-            String unit = time > 1 ? "minutes" : "minute";
-            return timeAndUnit(time, unit);
+            return timeAndUnit(time, "minute");
         }
-
         time = time / 60;
         if (time < 24) {
-            String unit = time > 1 ? "hours" : "hour";
-            return timeAndUnit(time, unit);
+            return timeAndUnit(time, "hour");
         }
-
         time = time / 24;
-        String unit = time > 1 ? "days" : "day";
-        return timeAndUnit(time, unit);
+        return timeAndUnit(time, "day");
     }
 
     public long seconds() {
         return value.get(ChronoUnit.SECONDS);
     }
 
+    private String timeAndUnit(long time, String unit) {
+        String pluralizedUnit = isPlural(time) ? unit + "s" : unit;
+        return time + " " + pluralizedUnit;
+    }
+    
+    private boolean isPlural(long value) {
+        return value > 1 || value == 0;
+    }
 }

@@ -6,6 +6,7 @@ import com.walter.xpsocial.domain.Social;
 import java.util.List;
 
 public class Reading implements Command {
+    
     private final String username;
     private Clock clock;
 
